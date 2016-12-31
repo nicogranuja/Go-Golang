@@ -16,6 +16,10 @@ func (this *User) set_name(name string){
 	this.name = name
 }
 
+func helloWorld() string{
+	return "Hello World"
+}
+
 func main() {
 	nico := new(User)
 
@@ -28,4 +32,7 @@ func main() {
 	nico.set_name("Alvarez")
 
 	fmt.Println(nico.full_name())	
+
+
+	fmt.Println(helloWorld())
 }
