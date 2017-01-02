@@ -1,14 +1,28 @@
 package main
 
 import(
+	"os"
 	"fmt"
 	"bufio"
-	"os"
 )
 
 func main() {
+	exec := readFile()
+	fmt.Println(exec)
+}
+
+func readFile() bool{
+
 	//using the os package
 	file,err := os.Open("./Hello.txt")
+
+	/*function added to the stack to be executed
+	no matter what before the return statement
+	*/
+	defer func(){
+		file.Close()
+		fmt.Println("Defer")
+	}()
 
 	if err != nil{
 		fmt.Println("Error!")
@@ -28,5 +42,5 @@ func main() {
 		fmt.Println(line)
 	}
 
-	file.Close()
+	return true
 }
