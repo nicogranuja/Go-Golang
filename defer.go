@@ -7,6 +7,12 @@ import(
 )
 
 func main() {
+	executeReadFile()
+	//thanks to recover we kept going
+	fmt.Println("Never happening because of panic unless using recover")
+}
+
+func executeReadFile(){
 	exec := readFile()
 	fmt.Println(exec)
 }
@@ -14,7 +20,7 @@ func main() {
 func readFile() bool{
 
 	//using the os package
-	file,err := os.Open("./Hello.txt")
+	file,err := os.Open("./Helloo.txt")
 
 	/*function added to the stack to be executed
 	no matter what before the return statement
@@ -22,10 +28,18 @@ func readFile() bool{
 	defer func(){
 		file.Close()
 		fmt.Println("Defer")
+
+		//prevents the script from stopping altogether
+		r := recover()
+
+		fmt.Println(r)
+
 	}()
 
 	if err != nil{
-		fmt.Println("Error!")
+		//way to handle and print an error
+		//stops executing script
+		panic(err)
 	}
 	//create scanner to read the file
 	scanner := bufio.NewScanner(file)
